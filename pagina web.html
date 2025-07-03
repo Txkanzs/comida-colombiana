@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Delicias Colombianas</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <style>
+    /* Animación fadeIn */
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+    .fade-in {
+      animation: fadeIn 0.6s ease forwards;
+    }
+    /* Botones con transición y hover */
+    button {
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+    button:hover {
+      transform: scale(1.05);
+    }
+    /* Tarjetas con hover */
+    .card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+    .card:hover {
+      transform: translateY(-8px) scale(1.03);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+    /* Botón flotante WhatsApp */
+    #whatsapp-btn {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background-color: #25D366;
+      color: white;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      z-index: 1000;
+      transition: background-color 0.3s ease;
+    }
+    #whatsapp-btn:hover {
+      background-color: #1ebe57;
+    }
+    #whatsapp-btn svg {
+      width: 28px;
+      height: 28px;
+    }
+  </style>
+  <script>
+    function showSection(id) {
+      const sections = document.querySelectorAll('.section');
+      sections.forEach((section) => {
+        section.classList.add('hidden');
+        section.classList.remove('fade-in');
+      });
+      const selected = document.getElementById(id);
+      selected.classList.remove('hidden');
+      // Agregar animación fade-in
+      setTimeout(() => selected.classList.add('fade-in'), 10);
+    }
+    window.addEventListener('DOMContentLoaded', () => {
+      showSection('inicio'); // Mostrar inicio al cargar
+    });
+
+    // Enviar mensaje al WhatsApp con datos del formulario
+    function enviarMensaje(event) {
+      event.preventDefault();
+      const nombre = document.getElementById('nombre').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const mensaje = document.getElementById('mensaje').value.trim();
+
+      if (!nombre || !email || !mensaje) {
+        alert('Por favor, completa todos los campos.');
+        return;
+      }
+
+      const textoWhatsApp = `Hola, soy ${nombre} (${email}).%0A%0AMensaje: ${mensaje}`;
+      const urlWhatsApp = `https://wa.me/34693538060?text=${textoWhatsApp}`;
+      window.open(urlWhatsApp, '_blank');
+    }
+
+    // Función para abrir chat WhatsApp con mensaje predefinido (vacío)
+    function abrirWhatsApp() {
+      const url = 'https://wa.me/34693538060';
+      window.open(url, '_blank');
+    }
+  </script>
+</head>
+<body class="bg-yellow-50 font-sans min-h-screen flex flex-col">
+  <header class="bg-red-600 text-white p-4 text-center">
+    <h1 class="text-3xl font-bold">Delicias Colombianas</h1>
+    <nav class="mt-2 flex justify-center gap-4 flex-wrap">
+      <button onclick="showSection('inicio')" class="px-4 py-2 bg-yellow-400 text-black rounded hover:bg-yellow-500">Inicio</button>
+      <button onclick="showSection('menu')" class="px-4 py-2 bg-yellow-400 text-black rounded hover:bg-yellow-500">Menú</button>
+      <button onclick="showSection('contacto')" class="px-4 py-2 bg-yellow-400 text-black rounded hover:bg-yellow-500">Contacto</button>
+    </nav>
+  </header>
+
+  <main class="p-6 flex-grow max-w-7xl mx-auto w-full">
+    <!-- INICIO -->
+    <section id="inicio" class="section">
+      <h2 class="text-2xl font-bold mb-6 text-center">Nuestros platos más pedidos</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-white p-4 rounded shadow card">
+          <img src="https://www.elespectador.com/resizer/v2/4YMEEW2QBVGALOUC7LSPUFNKMU.jpg?auth=1913090d3e141e8a3ccce35509259201363e9dddf853024e2f30ac71ce6383a9&width=1110&height=739&smart=true&quality=60" alt="Papas rellenas" class="rounded w-full h-48 object-cover" />
+          <h3 class="text-xl font-semibold mt-3 text-center">Papas Rellenas</h3>
+        </div>
+        <div class="bg-white p-4 rounded shadow card">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTF-aBbtz1sjWpPz2mxaVJIsc0UbLlkzH0s0w&s" alt="Patacones rellenos" class="rounded w-full h-48 object-cover" />
+          <h3 class="text-xl font-semibold mt-3 text-center">Patacones Rellenos</h3>
+        </div>
+        <div class="bg-white p-4 rounded shadow card">
+          <img src="https://alqueria.com.co/sites/default/files/2022-03/Arepas-rellenas-carne-desmechada-y-suero-costeno-alqueria.jpg" alt="Arepas rellenas" class="rounded w-full h-48 object-cover" />
+          <h3 class="text-xl font-semibold mt-3 text-center">Arepas Rellenas</h3>
+        </div>
+      </div>
+      <p class="mt-8 text-lg text-center max-w-3xl mx-auto">
+        Somos tu destino para disfrutar lo mejor de la comida rápida colombiana. Hecha con amor, tradición y mucho sabor. ¡Buen provecho!
+      </p>
+    </section>
+
+    <!-- MENU -->
+    <section id="menu" class="section hidden">
+      <h2 class="text-2xl font-bold mb-6 text-center">Menú Completo</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-white p-4 rounded shadow card">
+          <img src="https://www.elespectador.com/resizer/v2/4YMEEW2QBVGALOUC7LSPUFNKMU.jpg?auth=1913090d3e141e8a3ccce35509259201363e9dddf853024e2f30ac71ce6383a9&width=1110&height=739&smart=true&quality=60" alt="Papas rellenas" class="rounded w-full h-48 object-cover" />
+          <p class="mt-3 font-semibold text-center">Papas Rellenas</p>
+        </div>
+        <div class="bg-white p-4 rounded shadow card">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTF-aBbtz1sjWpPz2mxaVJIsc0UbLlkzH0s0w&s" alt="Patacones rellenos" class="rounded w-full h-48 object-cover" />
+          <p class="mt-3 font-semibold text-center">Patacones Rellenos</p>
+        </div>
+        <div class="bg-white p-4 rounded shadow card">
+          <img src="https://alqueria.com.co/sites/default/files/2022-03/Arepas-rellenas-carne-desmechada-y-suero-costeno-alqueria.jpg" alt="Arepas rellenas" class="rounded w-full h-48 object-cover" />
+          <p class="mt-3 font-semibold text-center">Arepas Rellenas</p>
+        </div>
+        <div class="bg-white p-4 rounded shadow card">
+          <img src="https://cloudfront-us-east-1.images.arcpublishing.com/infobae/2WM7IURUHJBMDCWRVGDJ2NGK6Q.jpeg" alt="Empanadas" class="rounded w-full h-48 object-cover" />
+          <p class="mt-3 font-semibold text-center">Empanadas Colombianas</p>
+        </div>
+        <div class="bg-white p-4 rounded shadow card">
+          <img src="https://www.theedgyveg.com/wp-content/uploads/2023/08/Vegan-Colombian-Hot-Dogs-Recipe-0-6-1.jpg" alt="Perro caliente colombiano" class="rounded w-full h-48 object-cover" />
+          <p class="mt-3 font-semibold text-center">Perro Caliente Colombiano</p>
+        </div>
+        <div class="bg-white p-4 rounded shadow card">
+          <img src="https://i.pinimg.com/736x/b5/7a/46/b57a460e74f143255aa4487446800a62.jpg" alt="Salchipapas" class="rounded w-full h-48 object-cover" />
+          <p class="mt-3 font-semibold text-center">Salchipapas Colombianas</p>
+        </div>
+        <div class="bg-white p-4 rounded shadow card">
+          <img src="https://vecinavegetariana.com/wp-content/uploads/2021/12/Bunuelos-Colombianos-Colombian-Bunuelos-7-1-678x1024.jpg" alt="Buñuelos" class="rounded w-full h-48 object-cover" />
+          <p class="mt-3 font-semibold text-center">Buñuelos Colombianos</p>
+        </div>
+        <div class="bg-white p-4 rounded shadow card">
+          <img src="https://i.ytimg.com/vi/tIVocvSJJvs/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLAZ3w5EOYd0luEVaUvulKDgav_yNg" alt="Pinchos colombianos" class="rounded w-full h-48 object-cover" />
+          <p class="mt-3 font-semibold text-center">Pinchos Colombianos (carne, pollo, rellenos)</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section id="contacto" class="section hidden max-w-md mx-auto">
+      <h2 class="text-2xl font-bold mb-6 text-center">Contáctanos</h2>
+      <form onsubmit="enviarMensaje(event)" class="bg-white p-6 rounded shadow">
+        <label for="nombre" class="block mb-2 font-semibold">Nombre:</label>
+        <input type="text" id="nombre" class="w-full p-2 border border-gray-300 rounded mb-4" required />
+
+        <label for="email" class="block mb-2 font-semibold">Correo electrónico:</label>
+        <input type="email" id="email" class="w-full p-2 border border-gray-300 rounded mb-4" required />
+
+        <label for="mensaje" class="block mb-2 font-semibold">Mensaje:</label>
+        <textarea id="mensaje" class="w-full p-2 border border-gray-300 rounded mb-4" rows="4" required></textarea>
+
+        <button type="submit" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 w-full">Enviar vía WhatsApp</button>
+      </form>
+    </section>
+  </main>
+
+  <!-- Botón flotante WhatsApp -->
+  <div id="whatsapp-btn" onclick="abrirWhatsApp()" aria-label="Chat WhatsApp" title="Contáctanos por WhatsApp">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
+      <path d="M20.52 3.48a11.929 11.929 0 00-16.88 16.88l-1.56 5.7 5.86-1.54a11.919 11.919 0 0012.58-20.04zm-9.54 15.22a7.91 7.91 0 01-4.3-1.19l-.31-.19-2.56.67.68-2.5-.2-.32a7.928 7.928 0 0112.92-9.98 7.888 7.888 0 01-5.23 13.31zM12.1 7.97c-.27 0-.53.1-.73.3l-.47.46a.99.99 0 00-.3.74c0 .14.06.27.17.37l.4.4c.15.15.19.35.13.54l-.33 1.1c-.03.12.04.25.16.3l1.15.58c.19.1.44.03.57-.15l.48-.64c.12-.15.15-.34.1-.51l-.35-1.16a.7.7 0 00-.38-.46l-.56-.32a.6.6 0 00-.35-.08z" />
+    </svg>
+  </div>
+
+  <footer class="bg-red-600 text-white text-center p-4 mt-6">
+    &copy; 2025 Delicias Colombianas 
+  </footer>
+</body>
+</html>
